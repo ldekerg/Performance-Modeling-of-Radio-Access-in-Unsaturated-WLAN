@@ -15,7 +15,7 @@ int main() {
   srand(time(nullptr));
 
   // Graph parameters
-  int graphSize = 25;
+  int graphSize = 50;
   double radius = 0.144;      //corresponds to a density of roughly 0.2
 
   // Graph initialization
