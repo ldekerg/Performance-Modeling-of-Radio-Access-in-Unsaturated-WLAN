@@ -34,7 +34,7 @@ int main() {
 
   // Save graph configuration
   std::ofstream graph_file("./results/exemple_graph.txt");
-  for (int u=0; u < graphSize-1; u++)
+  for (int u=0; u < graphSize+1; u++)
   {
     for (int v = u+1; v < graphSize; v++){
       if (G.areAdjacent(u,v)) graph_file << u << " " << v << "\n";
@@ -43,14 +43,14 @@ int main() {
   graph_file.close();
 
   std::ofstream rho_file("./results/exemple_rhos.txt");
-  for (int u=0; u < graphSize-1; u++)
+  for (int u=0; u < graphSize+1; u++)
   {
     rho_file << u << " " << rhos[u] << std::endl;
   }
   rho_file.close();
 
   std::ofstream allocation_file("./results/exemple_allocation.txt");
-  for (int u=0; u < graphSize-1; u++)
+  for (int u=0; u < graphSize+1; u++)
   {
     allocation_file << u << " " << 0 << std::endl;
   }
@@ -58,7 +58,7 @@ int main() {
 
   // Save performance evaluation
   std::ofstream results_file("./results/exemple_model_performances.txt");
-  for (int u=0; u < graphSize-1; u++)
+  for (int u=0; u < graphSize+1; u++)
   {
     results_file << u << " " << performance[u] << std::endl;
   }
