@@ -11,54 +11,42 @@
 
 using namespace std;
 
-int main() {
+/**
+ * There must be all the following argument
+ * 0 : (int) number of nodes in the graph
+ * 1 : (str) path to a .txt file containing a edge representation of the graph
+ * 2 : (str) path to a .txt file containing the rho for every vertex of the graph
+ * 3 : (str) path to a .txt file containing the radio channel for every vertex of the graph
+ * 4 : (str) path to the output file
+ */
+int main(int argc, char *argv[]) {
   srand(time(nullptr));
 
-  // Graph parameters
-  int graphSize = 50;
-  double radius = 0.144;      //corresponds to a density of roughly 0.2
+  if (argc != 5) return 1;
+  int number_of_nodes = stoi(argv[0]);
 
   // Graph initialization
-  Graph G = generateUnitDiskGraph(graphSize, radius);
-  std::vector<double> rhos = generateUniformRhos(graphSize, 0.1, 0.6);
+  Graph G = fromEdgeFile(argv[1], number_of_nodes);
+  vector<double> rhos = fromRhoFile(argv[2], number_of_nodes);
   G.setRhos(rhos);
 
   // Channel allocation (every AP on the same radio channel)
-  std::vector<std::vector<int>> channel_allocation;
-  std::vector<int> list;
-  for(int u = 0; u < graphSize; u++) list.push_back(u);
-  channel_allocation.push_back(list);
+  std::ifstream allocFile(argv[3]);
+  string line;
+  std::vector<std::vector<int>> channel_allocation (1, std::vector<int>{});
+  while (getline(allocFile, line))
+  {
+    // tokenize line
+    std::vector<std::string> tokens = tokenize(line, " ");
+    channel_allocation[std::stoi(tokens[1])].push_back(std::stoi(tokens[0]));
+  }
 
   // Compute performances
   std::vector<double> performance = performanceModel(G, channel_allocation);
 
-  // Save graph configuration
-  std::ofstream graph_file("./results/exemple_graph.txt");
-  for (int u=0; u < graphSize+1; u++)
-  {
-    for (int v = u+1; v < graphSize; v++){
-      if (G.areAdjacent(u,v)) graph_file << u << " " << v << "\n";
-    }
-  }
-  graph_file.close();
-
-  std::ofstream rho_file("./results/exemple_rhos.txt");
-  for (int u=0; u < graphSize+1; u++)
-  {
-    rho_file << u << " " << rhos[u] << std::endl;
-  }
-  rho_file.close();
-
-  std::ofstream allocation_file("./results/exemple_allocation.txt");
-  for (int u=0; u < graphSize+1; u++)
-  {
-    allocation_file << u << " " << 0 << std::endl;
-  }
-  allocation_file.close();
-
   // Save performance evaluation
-  std::ofstream results_file("./results/exemple_model_performances.txt");
-  for (int u=0; u < graphSize+1; u++)
+  std::ofstream results_file(argv[4]);
+  for (int u=0; u < number_of_nodes+1; u++)
   {
     results_file << u << " " << performance[u] << std::endl;
   }
