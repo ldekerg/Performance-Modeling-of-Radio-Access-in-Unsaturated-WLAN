@@ -23,15 +23,15 @@ int main(int argc, char *argv[]) {
   srand(time(nullptr));
 
   if (argc != 5) return 1;
-  int number_of_nodes = stoi(argv[0]);
+  int number_of_nodes = stoi(argv[1]);
 
   // Graph initialization
-  Graph G = fromEdgeFile(argv[1], number_of_nodes);
-  vector<double> rhos = fromRhoFile(argv[2], number_of_nodes);
+  Graph G = fromEdgeFile(argv[2], number_of_nodes);
+  vector<double> rhos = fromRhoFile(argv[3], number_of_nodes);
   G.setRhos(rhos);
 
   // Channel allocation (every AP on the same radio channel)
-  std::ifstream allocFile(argv[3]);
+  std::ifstream allocFile(argv[4]);
   string line;
   std::vector<std::vector<int>> channel_allocation (1, std::vector<int>{});
   while (getline(allocFile, line))
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
   std::vector<double> performance = performanceModel(G, channel_allocation);
 
   // Save performance evaluation
-  std::ofstream results_file(argv[4]);
+  std::ofstream results_file(argv[5]);
   for (int u=0; u < number_of_nodes+1; u++)
   {
     results_file << u << " " << performance[u] << std::endl;
