@@ -20,4 +20,11 @@ Graph generateUnitDiskGraph(int n, double r);
  */
 Graph generateUnitDiskGraph(int n, double r, std::vector<double> rhos);
 
+/** Generate a graph from a edge file 
+ * @param filename path to the file
+ * @param nb_nodes number of nodes of the graph
+*/
+Graph fromEdgeFile(const std::string filename, int nb_nodes);
+
+
 #endif // GRAPH_GENERATOR_HPP

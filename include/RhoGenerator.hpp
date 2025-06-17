@@ -44,6 +44,14 @@ std::vector<double> generateDoubleGaussianRhos(int n, double mu1, double sigma1,
  */
 std::vector<double> generateSpatialGaussianRhos(const Graph& G, int parts, const std::vector<double>& params);
 
+/**
+ * Generates rhos from a file
+ * @param filename path to the file
+ * @param nb_nodes number of nodes in the graph
+ */
+std::vector<double> fromRhoFile(const std::string filename, int nb_nodes);
+
+
 
 
 #endif // GRAPH_GENERATOR_HPP

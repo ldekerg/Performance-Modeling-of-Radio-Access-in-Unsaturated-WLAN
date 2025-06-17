@@ -114,7 +114,7 @@ void evaluatePerformanceArbitrarySaturated(const Graph &G, const std::vector<std
             {
               independentSet.erase(std::remove(independentSet.begin(), independentSet.end(), uniqueNeighborInSet), independentSet.end());
               independentSet.push_back(u);
-            }
+            } 
           }
         }
       }

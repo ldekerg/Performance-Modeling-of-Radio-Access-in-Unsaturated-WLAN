@@ -58,3 +58,19 @@ vector<double> generateSpatialGaussianRhos(const Graph& G, int parts, const vect
   }
   return rhos;
 }
+
+std::vector<double> fromRhoFile(const std::string filename, int nb_nodes)
+{
+  std::ifstream rhoFile(filename);
+  std::string line;
+
+  std::vector<double> rhos(nb_nodes, 0);
+
+  while (getline(rhoFile, line))
+  {
+    // tokenize line
+    std::vector<std::string> tokens = tokenize(line, " ");
+    rhos[std::stoi(tokens[0])] = std::stod(tokens[1]);
+  }
+  return rhos;
+}

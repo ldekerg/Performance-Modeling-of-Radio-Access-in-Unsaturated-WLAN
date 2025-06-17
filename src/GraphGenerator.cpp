@@ -48,3 +48,20 @@ Graph generateUnitDiskGraph(int n, double r, std::vector<double> rhos)
   G.setRhos(rhos);
   return G;
 }
+
+Graph fromEdgeFile(const std::string filename, int nbNodes)
+{
+  std::ifstream edgeFile(filename);
+  std::string line;
+
+  Graph G(nbNodes);
+
+  while (getline(edgeFile, line))
+  {
+    // tokenize line
+    std::vector<std::string> tokens = tokenize(line, " ");
+    G.addEdge(std::stoi(tokens[0]), std::stoi(tokens[1]));
+  }
+  return G;
+}
+
