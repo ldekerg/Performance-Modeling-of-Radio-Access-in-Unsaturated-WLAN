@@ -22,7 +22,7 @@ using namespace std;
 int main(int argc, char *argv[]) {
   srand(time(nullptr));
 
-  if (argc != 5) return 1;
+  if (argc != 6) return 1;
   int number_of_nodes = stoi(argv[1]);
 
   // Graph initialization
