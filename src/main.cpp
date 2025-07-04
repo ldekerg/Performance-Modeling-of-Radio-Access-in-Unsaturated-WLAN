@@ -50,6 +50,9 @@ int main(int argc, char *argv[]) {
   {
     results_file << u << " " << performance[u] << std::endl;
   }
+
+  // confidence index
+  results_file << "confidence " << 0 << std::endl;
   results_file.close();
 
   return 0;
