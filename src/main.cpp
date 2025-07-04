@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
 
   // Save performance evaluation
   std::ofstream results_file(argv[4]);
-  for (int u=0; u < number_of_nodes+1; u++)
+  for (int u=0; u < number_of_nodes; u++)
   {
     results_file << u << " " << performance[u] << std::endl;
   }
